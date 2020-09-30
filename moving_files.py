@@ -4,16 +4,16 @@ import sys
 from collections import namedtuple
 from glob import glob
 import re
-from pathlib import Path
+import os
 
 class WrongInputs(Exception):
         pass
 
 class Movement:
-        def __init__(self, pattern, to):        
+        def __init__(self, pattern, to, from_):        
                 self.to = to
                 self.pattern = pattern
-
+                self.from_ = from_
         
         def memory_size(self, place='to'):
                 '''
@@ -48,7 +48,7 @@ class Movement:
                 Moving the capture pattern to the specified location
                 '''
                 try:
-                        data = glob(self.pattern)
+                        data = glob(os.path.join(self.from_, self.pattern))
                         for i in data:
                                 sh.move(i, self.to)
                 except Exception as e:
@@ -56,9 +56,11 @@ class Movement:
 
 def main():
         try:
+                print('From which location?\n. --> current directory\nSpecify the path e.g C:\\user\\.')
+                path0 = input()
                 path1 = input('Input the pattern to use: ')
                 path2 = input('The location to move-to: ')
-                mov = Movement(path1, path2)
+                mov = Movement(path1, path2, path0)
                 print('Do you want to move the data to the specified location?\n[Y|N]>>>', end=' ')
                 ask = input().capitalize()
                 if ask.startswith('Y'):
