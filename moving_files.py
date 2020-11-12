@@ -62,7 +62,10 @@ class Movement:
 
 def main():
     try:
-        print('From which location?\n [.] --> Current directory\n[..] --> Parent directory\nSpecify the path e.g C:\\user\\.')
+        print('From which location?\n'
+              '[.] --> Current directory\n'
+              '[..] --> Parent directory\n'
+              'Specify the path e.g C:\\user\\.')
         path0 = input('>>> ')
         path1 = input('Input the pattern to use: ')
         path2 = input('The location to move-to: ')
@@ -80,7 +83,6 @@ def main():
         sys.exit(0)
     except Exception as e:
         raise WrongInputs(f'Invalid pattern or location')
-        sys.exit(1)
 
 
 if __name__ == '__main__':
